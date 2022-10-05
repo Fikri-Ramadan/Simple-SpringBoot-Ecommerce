@@ -1,5 +1,6 @@
 package com.fikritech.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -25,7 +26,8 @@ public class Category implements Serializable {
     @Column(name = "name", nullable = false, unique = true, length = 225)
     private String name;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("Category")
     private List<Product> productList = new ArrayList<>();
 
     @Column(name = "createdAt")
