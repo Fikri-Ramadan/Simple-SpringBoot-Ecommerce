@@ -1,5 +1,6 @@
 package com.fikritech.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,7 +12,8 @@ import java.util.Date;
 
 @Entity
 @Table(name = "product")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -32,15 +34,17 @@ public class Product implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("productList")
+    @JsonIgnoreProperties({"productList"})
     private Category category;
 
     @Column(name = "createdAt")
     @CreationTimestamp
+    @JsonIgnore
     private Date createdAt;
 
     @Column(name = "updatedAt")
     @UpdateTimestamp
+    @JsonIgnore
     private Date updatedAt;
 
 }
