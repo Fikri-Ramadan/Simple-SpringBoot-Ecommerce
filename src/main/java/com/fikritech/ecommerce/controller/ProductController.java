@@ -1,5 +1,6 @@
 package com.fikritech.ecommerce.controller;
 
+import com.fikritech.ecommerce.common.BaseResponse;
 import com.fikritech.ecommerce.entity.Product;
 import com.fikritech.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,28 +20,28 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/{id}")
-    public Product getOne(@PathVariable Long id) {
-        return productService.getOne(id);
+    public ResponseEntity<BaseResponse<Product>> getOne(@PathVariable Long id) {
+        return ResponseEntity.ok(new BaseResponse<>(productService.getOne(id)));
     }
 
     @GetMapping
-    public List<Product> getAll() {
-        return productService.getAll();
+    public ResponseEntity<BaseResponse<List<Product>>> getAll() {
+        return ResponseEntity.ok(new BaseResponse<>(productService.getAll()));
     }
 
     @PostMapping
-    public Product addOne(@RequestBody Product product) {
-        return productService.addOne(product);
+    public ResponseEntity<BaseResponse<Product>> addOne(@RequestBody Product product) {
+        return ResponseEntity.ok(new BaseResponse<>(productService.addOne(product)));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateOne(@RequestBody Product product, @PathVariable Long id) {
-        return ResponseEntity.ok(productService.updateOne(id, product));
+    public ResponseEntity<BaseResponse<Product>> updateOne(@RequestBody Product product, @PathVariable Long id) {
+        return ResponseEntity.ok(new BaseResponse<>(productService.updateOne(id, product)));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteOne(@PathVariable Long id) {
-        return ResponseEntity.ok(productService.deleteOne(id));
+    public ResponseEntity<BaseResponse<Boolean>> deleteOne(@PathVariable Long id) {
+        return ResponseEntity.ok(new BaseResponse<>(productService.deleteOne(id)));
     }
 
 }
